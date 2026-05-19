@@ -38,15 +38,12 @@ export default function Header() {
     <>
       <header
         role="banner"
-        className={`fixed top-0 left-0 right-0 z-50 h-[56px] transition-all duration-300 ${
-          scrolled
-            ? "backdrop-blur-[12px] border-b"
-            : "bg-transparent"
-        }`}
-        style={scrolled ? {
-          background: "rgba(8,8,12,0.92)",
+        className="fixed top-0 left-0 right-0 z-50 h-[56px] border-b transition-all duration-300"
+        style={{
+          background: scrolled ? "rgba(8,8,12,0.96)" : "var(--bg-base)",
           borderColor: "var(--border-faint)",
-        } : undefined}
+          backdropFilter: scrolled ? "blur(12px)" : "none",
+        }}
       >
         <div className="container h-full flex items-center justify-between">
 

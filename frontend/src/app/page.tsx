@@ -82,13 +82,13 @@ export default async function HomePage() {
   const allTech = [...TECH, ...TECH];
 
   return (
-    <div>
+    <div className="pt-[56px]">
 
       {/* ══════════════════════════════════════════════════════
           HERO — Terminal Editorial Brutalist
       ══════════════════════════════════════════════════════ */}
       <section
-        className="relative min-h-[90vh] flex flex-col justify-center"
+        className="relative min-h-[calc(100vh-56px)] flex flex-col justify-center"
         aria-labelledby="hero-heading"
       >
         {/* Accent glows — < 4 % opacity */}
@@ -99,8 +99,8 @@ export default async function HomePage() {
             style={{ background: "radial-gradient(circle, rgba(0,229,255,0.04) 0%, transparent 60%)" }} />
         </div>
 
-        <div className="container relative pt-[56px]">
-          <div className="max-w-[860px] pt-16 pb-20">
+        <div className="container relative">
+          <div className="max-w-[860px] py-16">
 
             {/* Terminal box */}
             <div className="animate-fade-up mb-10">
