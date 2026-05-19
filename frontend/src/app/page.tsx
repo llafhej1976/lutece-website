@@ -1,5 +1,9 @@
 import Link from "next/link";
 import { ArrowRight, Shield, Layers, FileCheck, CheckCircle } from "lucide-react";
+import TerminalBox from "@/components/ui/terminal/TerminalBox";
+import PromptLine from "@/components/ui/terminal/PromptLine";
+import CommandButton from "@/components/ui/terminal/CommandButton";
+import BlinkCursor from "@/components/ui/terminal/BlinkCursor";
 
 export const dynamic = "force-dynamic";
 
@@ -81,67 +85,99 @@ export default async function HomePage() {
     <div>
 
       {/* ══════════════════════════════════════════════════════
-          HERO — min-h 85vh, leave scroll hint at bottom
+          HERO — Terminal Editorial Brutalist
       ══════════════════════════════════════════════════════ */}
       <section
-        className="relative min-h-[85vh] flex flex-col justify-center dot-grid"
+        className="relative min-h-[90vh] flex flex-col justify-center"
         aria-labelledby="hero-heading"
       >
-        {/* Radial accent glows — < 12 % opacity */}
+        {/* Accent glows — < 4 % opacity */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-          <div className="absolute top-1/3 -left-32 w-[700px] h-[700px] rounded-full"
-            style={{ background: "radial-gradient(circle, rgba(124,92,255,0.10) 0%, transparent 65%)" }} />
+          <div className="absolute top-1/3 -left-48 w-[800px] h-[800px] rounded-full"
+            style={{ background: "radial-gradient(circle, rgba(167,139,250,0.06) 0%, transparent 60%)" }} />
           <div className="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full"
-            style={{ background: "radial-gradient(circle, rgba(77,208,255,0.07) 0%, transparent 65%)" }} />
+            style={{ background: "radial-gradient(circle, rgba(0,229,255,0.04) 0%, transparent 60%)" }} />
         </div>
 
-        <div className="container relative pt-[72px]">
-          <div className="max-w-[840px] pt-16 pb-20">
+        <div className="container relative pt-[56px]">
+          <div className="max-w-[860px] pt-16 pb-20">
 
-            {/* Kicker */}
-            <div className="animate-fade-up flex items-center gap-2 mb-8">
-              <span className="pulse-dot" aria-hidden="true" />
-              <span className="kicker text-[#4DD0FF]">
-                Disponible · 2 juin 2026 · Paris / Hybride
-              </span>
+            {/* Terminal box */}
+            <div className="animate-fade-up mb-10">
+              <TerminalBox title="lutece-consulting — zsh" className="max-w-[480px]">
+                <div className="p-4 space-y-1.5">
+                  <PromptLine command="whoami" />
+                  <PromptLine command="loic.lafhej@lutece-consulting.com" prefix="→" />
+                  <PromptLine command="architect --env regulated --mode production" />
+                  <PromptLine command="available --date 2026-06-02 --location Paris" prefix="→" />
+                  <PromptLine command="export TJM=&quot;850-1100 €/j&quot;" />
+                </div>
+              </TerminalBox>
             </div>
 
             {/* H1 */}
             <h1
               id="hero-heading"
-              className="animate-fade-up delay-1 text-[clamp(2.5rem,6vw,4.5rem)] font-bold leading-[1.05] tracking-[-0.025em] text-balance"
+              className="animate-fade-up delay-1 font-bold uppercase leading-[0.95] tracking-[-0.02em] text-balance"
+              style={{ fontSize: "clamp(2.75rem, 7vw, 5rem)" }}
             >
-              L&apos;<span className="gradient-text">architecte</span> qui met de l&apos;IA
-              agentique en production{" "}
-              <span className="text-[#7A7E8C]">dans des environnements régulés.</span>
+              <span style={{ color: "var(--text-primary)" }}>L&apos;ARCHITECTE QUI MET</span>
+              <br />
+              <span style={{ color: "var(--text-primary)" }}>DE L&apos;IA AGENTIQUE</span>
+              <br />
+              <span className="gradient-text">EN PRODUCTION</span>
+              <BlinkCursor className="ml-1" />
             </h1>
 
-            {/* Lead */}
-            <p className="animate-fade-up delay-2 mt-6 text-[1.125rem] text-[#B4B7C1] leading-[1.65] max-w-[560px]">
-              Pas de conseil théorique. J&apos;architecture, je code, je déploie, je mesure.
+            {/* Sub */}
+            <p
+              className="animate-fade-up delay-2 mt-7 leading-[1.65] max-w-[560px]"
+              style={{ fontSize: "1.0625rem", color: "var(--text-secondary)" }}
+            >
+              Pas de conseil théorique. Architecture, code, déploiement, mesure —
+              dans des environnements régulés (banque, assurance, santé).
             </p>
 
             {/* Meta */}
-            <p className="animate-fade-up delay-3 mt-3 text-sm font-mono text-[#5A5E6B]">
-              Loïc Lafhej · LUTECE Consulting SAS · DEA IA Paris&nbsp;13 · 23 ans IT · TJM 850–1100&nbsp;€/j
+            <p
+              className="animate-fade-up delay-3 mt-3 font-mono text-xs"
+              style={{ color: "var(--text-dim)" }}
+              aria-hidden="true"
+            >
+              LOÏC LAFHEJ · LUTECE CONSULTING SAS · DEA IA PARIS 13 · 23 ANS IT
             </p>
 
             {/* CTAs */}
             <div className="animate-fade-up delay-4 mt-10 flex flex-col sm:flex-row gap-3">
-              <Link href="/services" className="btn btn-primary btn-lg">
-                Voir mes services
-                <ArrowRight size={16} aria-hidden="true" />
-              </Link>
-              <Link href="/contact" className="btn btn-ghost btn-lg">
-                Me contacter
-              </Link>
+              <CommandButton href="/services" variant="primary" size="lg" as="a">
+                ./voir-services
+                <ArrowRight size={14} aria-hidden="true" />
+              </CommandButton>
+              <CommandButton href="/contact" variant="ghost" size="lg" as="a">
+                ./me-contacter
+              </CommandButton>
             </div>
+
+            {/* Status line */}
+            <div
+              className="animate-fade-up delay-5 mt-8 flex items-center gap-2"
+              aria-label="Statut : disponible"
+            >
+              <span className="pulse-dot" aria-hidden="true" />
+              <span
+                className="font-mono text-xs"
+                style={{ color: "var(--accent-success)" }}
+              >
+                DISPONIBLE · 2 JUIN 2026 · PARIS / HYBRIDE ÎLE-DE-FRANCE
+              </span>
+            </div>
+
           </div>
         </div>
 
-        {/* Scroll line hint */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1" aria-hidden="true">
-          <div className="w-px h-10 bg-gradient-to-b from-transparent to-white/10" />
+        {/* Scroll hint */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2" aria-hidden="true">
+          <div className="w-px h-10" style={{ background: "linear-gradient(to bottom, transparent, var(--border-default))" }} />
         </div>
       </section>
 
