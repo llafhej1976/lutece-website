@@ -104,12 +104,55 @@ const servicesJsonLd = {
   })),
 };
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Quels types de projets IA agentique prenez-vous en charge ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Je prends en charge la conception et le déploiement de plateformes IA agentiques pour des environnements régulés : banque, assurance, santé. Cela inclut les architectures multi-agents, les systèmes de quorum N-LLM, la mise en conformité EU AI Act et la mise en production complète avec observabilité.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Quel est votre TJM et votre disponibilité ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Mon TJM est de 850 à 1100€ par jour selon le contexte de la mission. Je suis disponible à partir du 2 juin 2026 pour des missions à Paris et en mode hybride (Île-de-France).",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Comment garantissez-vous la conformité EU AI Act ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "J'applique une approche praticien : audit de conformité des systèmes IA existants selon les Articles 9-15 de l'EU AI Act, création de l'AI risk register aligné ISO 42001, model cards, system cards, audit chain SHA-256 avec rétention 7 ans, et policy engine pre-LLM. Je couvre également DORA, RGPD et AAOIFI.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Qu'est-ce qu'une architecture Quorum Multi-LLM ?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Une architecture quorum N-LLM spécialisée orchestre plusieurs modèles de langage (LLM) en parallèle, chacun spécialisé par rôle. Un moteur de consensus détermine la réponse finale. Cela améliore la fiabilité, réduit les hallucinations et permet une observabilité fine (latence p95/p99, coût, qualité par provider).",
+      },
+    },
+  ],
+};
+
 export default function ServicesPage() {
   return (
     <div className="pt-24 pb-24 px-6 max-w-5xl mx-auto">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <h1 className="text-4xl font-bold mb-4">Services</h1>
       <p className="text-lg text-[#a3a3a3] mb-16 max-w-2xl">
