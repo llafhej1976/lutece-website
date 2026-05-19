@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "lutece-website-backend"
+version = "0.1.0"
+description = "LUTECE Consulting website backend API"
+authors = ["Loïc Lafhej <loic.lafhej@lutece-consulting.com>"]
+python = "^3.12"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115"
+uvicorn = {extras = ["standard"], version = "^0.30"}
+sqlalchemy = {extras = ["asyncio"], version = "^2.0"}
+asyncpg = "^0.29"
+alembic = "^1.13"
+pydantic = "^2.0"
+pydantic-settings = "^2.0"
+python-jose = {extras = ["cryptography"], version = "^3.3"}
+passlib = {extras = ["bcrypt"], version = "^1.7"}
+python-multipart = "^0.0.9"
+email-validator = "^2.1"
+httpx = "^0.27"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0"
+pytest-asyncio = "^0.23"
+ruff = "^0.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

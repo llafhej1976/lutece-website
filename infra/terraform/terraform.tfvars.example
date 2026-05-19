@@ -1,0 +1,12 @@
+# Copy to terraform.tfvars and fill in your values
+# NEVER commit terraform.tfvars to git
+
+tenancy_ocid        = "ocid1.tenancy.oc1..xxx"
+user_ocid           = "ocid1.user.oc1..xxx"
+fingerprint         = "xx:xx:xx:xx"
+private_key_path    = "~/.oci/oci_api_key.pem"
+region              = "eu-paris-1"
+compartment_id      = "ocid1.tenancy.oc1..xxx"   # root compartment = tenancy_ocid
+availability_domain = "MCQj:EU-PARIS-1-AD-1"
+ubuntu_arm_image_id = "ocid1.image.oc1.eu-paris-1.xxx"  # get from OCI console
+ssh_public_key      = "ssh-rsa AAAA..."
