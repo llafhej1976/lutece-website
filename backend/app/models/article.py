@@ -4,7 +4,7 @@ import uuid
 from datetime import datetime
 from sqlalchemy import String, Text, Boolean, Integer, DateTime, ARRAY, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column
 
 from app.models.base import Base
 
