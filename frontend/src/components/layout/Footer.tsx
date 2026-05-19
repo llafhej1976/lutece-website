@@ -47,8 +47,8 @@ export default function Footer() {
             </Link>
             <p className="text-xs text-[#5A5E6B] leading-relaxed mb-3">
               LUTECE Consulting SAS<br />
-              Architecte IA Agentique Senior<br />
-              Paris / Île-de-France
+              60 rue François Ier, 75008 Paris<br />
+              SIREN 882&nbsp;573&nbsp;215
             </p>
             <div className="flex items-center gap-1.5">
               <span className="pulse-dot" aria-hidden="true" />
@@ -136,7 +136,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 pt-6 border-t border-white/[0.06] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <p className="text-xs text-[#5A5E6B]">
-            © {year} LUTECE Consulting SAS · Tous droits réservés
+            © {year} LUTECE Consulting SAS · SAS au capital de 1 000 € · SIREN 882&nbsp;573&nbsp;215 · TVA FR91882573215
           </p>
           <p className="text-xs font-mono text-[#3A3E4C]">
             TJM 850–1100 €/j · Paris / Hybride · Disponible juin 2026

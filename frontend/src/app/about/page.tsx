@@ -53,10 +53,10 @@ const TIMELINE = [
     current: false,
   },
   {
-    year: "2024",
+    year: "2020",
     icon: Briefcase,
     label: "Fondation LUTECE Consulting SAS",
-    place: "Paris — Cabinet conseil IA agentique",
+    place: "Paris — SIREN 882 573 215",
     current: false,
   },
   {
@@ -192,7 +192,7 @@ export default function AboutPage() {
               <div className="flex flex-wrap gap-4 mt-6 text-xs font-mono text-[#5A5E6B]">
                 <span className="flex items-center gap-1.5">
                   <MapPin size={12} className="text-[#7A7E8C]" />
-                  Paris / Île-de-France
+                  75008 Paris / Île-de-France
                 </span>
                 <span className="flex items-center gap-1.5">
                   <Briefcase size={12} className="text-[#7A7E8C]" />

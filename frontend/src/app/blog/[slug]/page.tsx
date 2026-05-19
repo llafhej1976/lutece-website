@@ -72,35 +72,22 @@ function formatDate(iso: string): string {
   });
 }
 
-function renderContent(content: string) {
-  return content.split("\n\n").map((block, i) => {
-    if (block.startsWith("# ")) {
-      return (
-        <h2 key={i} className="text-2xl font-bold text-[#F5F6F8] mt-10 mb-4">
-          {block.slice(2)}
-        </h2>
-      );
-    }
-    if (block.startsWith("## ")) {
-      return (
-        <h3 key={i} className="text-xl font-semibold text-[#F5F6F8] mt-8 mb-3">
-          {block.slice(3)}
-        </h3>
-      );
-    }
-    if (block.startsWith("### ")) {
-      return (
-        <h4 key={i} className="text-lg font-semibold text-[#B4B7C1] mt-6 mb-2">
-          {block.slice(4)}
-        </h4>
-      );
-    }
-    if (block.startsWith("```")) {
-      const lines = block.split("\n");
+function renderContent(raw: string): React.ReactNode[] {
+  // Strip leading H1 (already rendered as page <h1> from article.title_fr)
+  const content = raw.replace(/^#[ \t]+[^\n]+\n?/, "");
+
+  // Split preserving code fences — odd-indexed elements are code blocks
+  const parts = content.split(/(```[\w]*\n[\s\S]*?```)/);
+  const elements: React.ReactNode[] = [];
+
+  parts.forEach((part, partIdx) => {
+    if (part.startsWith("```")) {
+      const lines = part.split("\n");
       const lang = lines[0].replace("```", "").trim();
-      const code = lines.slice(1, lines[lines.length - 1] === "```" ? -1 : undefined).join("\n");
-      return (
-        <div key={i} className="my-6">
+      const lastLine = lines[lines.length - 1];
+      const code = lines.slice(1, lastLine === "```" ? -1 : undefined).join("\n");
+      elements.push(
+        <div key={`code-${partIdx}`} className="my-6">
           {lang && (
             <div className="flex items-center gap-2 px-4 py-2 bg-[#0A0B10] border border-white/[0.1] border-b-0 rounded-t-lg">
               <span className="text-xs font-mono text-[#5A5E6B]">{lang}</span>
@@ -113,36 +100,65 @@ function renderContent(content: string) {
           </pre>
         </div>
       );
+      return;
     }
-    if (block.startsWith("- ") || block.startsWith("* ")) {
-      const items = block.split("\n").filter((l) => l.trim());
-      return (
-        <ul key={i} className="my-4 space-y-2">
-          {items.map((item, j) => (
-            <li key={j} className="text-[#B4B7C1] flex items-start gap-2 text-sm leading-relaxed">
-              <span className="text-[#4DD0FF] shrink-0 mt-1">›</span>
-              {item.replace(/^[-*]\s/, "")}
-            </li>
-          ))}
-        </ul>
-      );
-    }
-    if (block.startsWith("> ")) {
-      return (
-        <blockquote
-          key={i}
-          className="my-6 pl-4 border-l-2 border-[#7C5CFF] text-[#B4B7C1] italic text-sm leading-relaxed"
-        >
-          {block.slice(2)}
-        </blockquote>
-      );
-    }
-    return (
-      <p key={i} className="text-[#B4B7C1] leading-relaxed text-sm my-4">
-        {block}
-      </p>
-    );
+
+    // Normal prose — split on double newlines
+    part.split("\n\n").forEach((block, blockIdx) => {
+      const trimmed = block.trim();
+      if (!trimmed) return;
+      const key = `p-${partIdx}-${blockIdx}`;
+
+      if (trimmed.startsWith("# ")) {
+        elements.push(
+          <h2 key={key} className="text-2xl font-bold text-[#F5F6F8] mt-10 mb-4">
+            {trimmed.slice(2)}
+          </h2>
+        );
+      } else if (trimmed.startsWith("## ")) {
+        elements.push(
+          <h3 key={key} className="text-xl font-semibold text-[#F5F6F8] mt-8 mb-3">
+            {trimmed.slice(3)}
+          </h3>
+        );
+      } else if (trimmed.startsWith("### ")) {
+        elements.push(
+          <h4 key={key} className="text-lg font-semibold text-[#B4B7C1] mt-6 mb-2">
+            {trimmed.slice(4)}
+          </h4>
+        );
+      } else if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
+        const items = trimmed.split("\n").filter((l) => l.trim());
+        elements.push(
+          <ul key={key} className="my-4 space-y-2">
+            {items.map((item, j) => (
+              <li key={j} className="text-[#B4B7C1] flex items-start gap-2 text-sm leading-relaxed">
+                <span className="text-[#4DD0FF] shrink-0 mt-1">›</span>
+                {item.replace(/^[-*]\s/, "")}
+              </li>
+            ))}
+          </ul>
+        );
+      } else if (trimmed.startsWith("> ")) {
+        elements.push(
+          <blockquote
+            key={key}
+            className="my-6 pl-4 border-l-2 border-[#7C5CFF] text-[#B4B7C1] italic text-sm leading-relaxed"
+          >
+            {trimmed.slice(2)}
+          </blockquote>
+        );
+      } else {
+        elements.push(
+          <p key={key} className="text-[#B4B7C1] leading-relaxed text-sm my-4">
+            {trimmed}
+          </p>
+        );
+      }
+    });
   });
+
+  return elements;
 }
 
 export default async function ArticlePage({

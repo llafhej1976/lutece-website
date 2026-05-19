@@ -89,7 +89,9 @@ const jsonLd = {
       telephone: "+33652561133",
       address: {
         "@type": "PostalAddress",
+        streetAddress: "60 rue François Ier",
         addressLocality: "Paris",
+        postalCode: "75008",
         addressRegion: "Île-de-France",
         addressCountry: "FR",
       },
@@ -121,7 +123,9 @@ const jsonLd = {
       founder: { "@id": `${SITE_URL}/#person` },
       address: {
         "@type": "PostalAddress",
+        streetAddress: "60 rue François Ier",
         addressLocality: "Paris",
+        postalCode: "75008",
         addressRegion: "Île-de-France",
         addressCountry: "FR",
       },

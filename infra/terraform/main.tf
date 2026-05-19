@@ -8,11 +8,11 @@ terraform {
 }
 
 provider "oci" {
-  tenancy_ocid = var.tenancy_ocid
-  user_ocid    = var.user_ocid
-  fingerprint  = var.fingerprint
+  tenancy_ocid     = var.tenancy_ocid
+  user_ocid        = var.user_ocid
+  fingerprint      = var.fingerprint
   private_key_path = var.private_key_path
-  region       = var.region
+  region           = var.region
 }
 
 resource "oci_core_vcn" "website_vcn" {
@@ -47,19 +47,28 @@ resource "oci_core_security_list" "website_sl" {
   ingress_security_rules {
     protocol = "6"
     source   = "0.0.0.0/0"
-    tcp_options { min = 22; max = 22 }
+    tcp_options {
+      min = 22
+      max = 22
+    }
   }
 
   ingress_security_rules {
     protocol = "6"
     source   = "0.0.0.0/0"
-    tcp_options { min = 80; max = 80 }
+    tcp_options {
+      min = 80
+      max = 80
+    }
   }
 
   ingress_security_rules {
     protocol = "6"
     source   = "0.0.0.0/0"
-    tcp_options { min = 443; max = 443 }
+    tcp_options {
+      min = 443
+      max = 443
+    }
   }
 
   egress_security_rules {
