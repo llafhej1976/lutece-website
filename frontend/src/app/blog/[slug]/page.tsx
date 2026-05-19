@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, Clock, Calendar, Tag } from "lucide-react";
 import CommandButton from "@/components/ui/terminal/CommandButton";
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 const PILLAR: Record<number, { label: string; color: string }> = {
   1: { label: "IA Agentique Régulée", color: "var(--accent-violet)" },

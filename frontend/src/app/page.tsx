@@ -5,7 +5,7 @@ import PromptLine from "@/components/ui/terminal/PromptLine";
 import CommandButton from "@/components/ui/terminal/CommandButton";
 import BlinkCursor from "@/components/ui/terminal/BlinkCursor";
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "";
 
@@ -227,10 +227,7 @@ export default async function HomePage() {
               return (
                 <article
                   key={p.number}
-                  className="flex flex-col p-7 transition-colors duration-150"
-                  style={{ background: "var(--bg-elevated)" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--bg-overlay)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "var(--bg-elevated)")}
+                  className="hover-overlay flex flex-col p-7"
                 >
                   <div className="flex items-start justify-between mb-5">
                     <div
@@ -319,7 +316,7 @@ export default async function HomePage() {
             {/* Right — proof grid */}
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-px" role="list" style={{ background: "var(--border-default)" }}>
               {PROOF_ITEMS.map(({ icon: Icon, label, detail }) => (
-                <li key={label} className="p-5 flex gap-4 items-start" style={{ background: "var(--bg-elevated)" }}>
+                <li key={label} className="hover-overlay p-5 flex gap-4 items-start">
                   <div className="w-8 h-8 flex items-center justify-center shrink-0 mt-0.5" style={{ background: "rgba(167,139,250,0.08)", border: "1px solid rgba(167,139,250,0.2)" }}>
                     <Icon size={14} style={{ color: "var(--accent-violet)" }} aria-hidden="true" />
                   </div>
@@ -388,10 +385,7 @@ export default async function HomePage() {
                   <Link
                     key={a.slug}
                     href={`/blog/${a.slug}`}
-                    className="block p-6 group transition-colors"
-                    style={{ background: "var(--bg-elevated)" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.background = "var(--bg-overlay)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.background = "var(--bg-elevated)")}
+                    className="hover-overlay block p-6 group"
                   >
                     <div className="w-6 h-px mb-4" style={{ background: c }} aria-hidden="true" />
                     <h3 className="text-sm font-semibold mb-2 line-clamp-2 transition-colors" style={{ color: "var(--text-primary)" }}>

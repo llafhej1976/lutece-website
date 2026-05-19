@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Clock, Star } from "lucide-react";
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Blog IA Agentique — LLMOps, EU AI Act, Multi-LLM",
@@ -148,10 +148,7 @@ export default async function BlogPage() {
                         <Link
                           key={article.id}
                           href={`/blog/${article.slug}`}
-                          className="block p-7 group transition-colors"
-                          style={{ background: "var(--bg-elevated)" }}
-                          onMouseEnter={(e) => (e.currentTarget.style.background = "var(--bg-overlay)")}
-                          onMouseLeave={(e) => (e.currentTarget.style.background = "var(--bg-elevated)")}
+                          className="hover-overlay block p-7 group"
                         >
                           <div className="flex items-start gap-5">
                             <div className="flex-1 min-w-0">
@@ -213,10 +210,7 @@ export default async function BlogPage() {
                         <Link
                           key={article.id}
                           href={`/blog/${article.slug}`}
-                          className="block p-6 group transition-colors"
-                          style={{ background: "var(--bg-elevated)" }}
-                          onMouseEnter={(e) => (e.currentTarget.style.background = "var(--bg-overlay)")}
-                          onMouseLeave={(e) => (e.currentTarget.style.background = "var(--bg-elevated)")}
+                          className="hover-overlay block p-6 group"
                         >
                           <div className="flex items-start gap-4">
                             <div className="flex-1 min-w-0">

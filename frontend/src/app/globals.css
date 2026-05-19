@@ -366,6 +366,17 @@ select.form-input option {
 }
 
 /* ─────────────────────────────────────────────────────────────
+   HOVER UTILITIES — for server-rendered panels
+───────────────────────────────────────────────────────────── */
+.hover-overlay {
+  background: var(--bg-elevated);
+  transition: background 0.12s ease;
+}
+.hover-overlay:hover {
+  background: var(--bg-overlay);
+}
+
+/* ─────────────────────────────────────────────────────────────
    DOT GRID (explicit class for sections that override body)
 ───────────────────────────────────────────────────────────── */
 .dot-grid {
