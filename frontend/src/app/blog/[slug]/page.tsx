@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 const PILLAR_COLORS: Record<number, string> = {
   1: "#00d9ff",
   2: "#6b00ff",

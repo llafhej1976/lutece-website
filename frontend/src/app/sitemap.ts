@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 
+export const dynamic = "force-dynamic";
+
 const SITE_URL = "https://lutece-consulting.com";
 
 async function getArticleSlugs(): Promise<string[]> {
