@@ -17,9 +17,22 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-[#262626] bg-black/80 backdrop-blur-xl">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="font-mono text-sm font-bold">
-          <span className="text-[#00d9ff]">LUTECE</span>
-          <span className="text-[#a3a3a3]">.consulting</span>
+        <Link href="/" className="flex items-center gap-3 group" aria-label="LUTECE Consulting — Accueil">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <rect width="32" height="32" rx="7" fill="url(#hg)" />
+            <path d="M8 7h5v14h9v4H8V7z" fill="white" />
+            <defs>
+              <linearGradient id="hg" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#00d9ff" />
+                <stop offset="0.5" stopColor="#6b00ff" />
+                <stop offset="1" stopColor="#ff00c8" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <span className="font-mono text-sm font-bold leading-none">
+            <span className="text-[#00d9ff]">LUTECE</span>
+            <span className="text-[#a3a3a3]">.consulting</span>
+          </span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
