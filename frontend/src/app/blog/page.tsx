@@ -2,8 +2,24 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Blog — LUTECE Consulting",
-  description: "Articles techniques sur l'IA agentique en production, LLMOps, et conformité EU AI Act par Loïc Lafhej.",
+  title: "Blog IA Agentique — LLMOps, EU AI Act, Multi-LLM",
+  description:
+    "Retours d'expérience de Loïc Lafhej sur l'IA agentique en production. Architectures multi-agents, LLMOps, observabilité IA, conformité EU AI Act. Patterns réels, métriques, code.",
+  keywords: [
+    "blog IA agentique",
+    "LLMOps articles",
+    "EU AI Act pratique",
+    "architecture multi-agents production",
+    "observabilité LLM",
+    "Loïc Lafhej blog",
+  ],
+  alternates: { canonical: "https://lutece-consulting.com/blog" },
+  openGraph: {
+    title: "Blog IA Agentique | Loïc Lafhej — LUTECE Consulting",
+    description: "Patterns IA agentique, LLMOps, EU AI Act — retours d'expérience terrain.",
+    url: "https://lutece-consulting.com/blog",
+    type: "website",
+  },
 };
 
 const PILLAR_COLORS: Record<number, string> = {

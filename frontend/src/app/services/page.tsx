@@ -2,8 +2,26 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Services — LUTECE Consulting",
-  description: "AI Platform Architecture, LLMOps Multi-LLM, EU AI Act Compliance. Services d'architecture IA pour environnements régulés.",
+  title: "Services IA Agentique — Architecture, LLMOps, EU AI Act",
+  description:
+    "3 offres de services en architecture IA agentique pour environnements régulés : Architecture Plateforme IA (banque/assurance), LLMOps & Quorum Multi-LLM, Conformité EU AI Act Articles 9-15. Paris. Loïc Lafhej, LUTECE Consulting.",
+  keywords: [
+    "architecture plateforme IA",
+    "LLMOps Paris",
+    "conformité EU AI Act",
+    "consultant IA agentique Paris",
+    "architecture multi-agents",
+    "quorum LLM",
+    "DORA conformité IA",
+    "architecte IA freelance",
+  ],
+  alternates: { canonical: "https://lutece-consulting.com/services" },
+  openGraph: {
+    title: "Services Architecture IA Agentique | LUTECE Consulting Paris",
+    description:
+      "Architecture Plateforme IA, LLMOps Multi-LLM, Conformité EU AI Act. Disponible juin 2026. TJM 850–1100€.",
+    url: "https://lutece-consulting.com/services",
+  },
 };
 
 const SERVICES = [
@@ -60,9 +78,39 @@ const SERVICES = [
   },
 ];
 
+const servicesJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Services Architecture IA — LUTECE Consulting",
+  description: "Offres de services en architecture IA agentique pour environnements régulés",
+  url: "https://lutece-consulting.com/services",
+  numberOfItems: 3,
+  itemListElement: SERVICES.map((s, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "Service",
+      name: s.title,
+      description: s.description,
+      url: `https://lutece-consulting.com/services#${s.slug}`,
+      provider: {
+        "@type": "Organization",
+        name: "LUTECE Consulting SAS",
+        url: "https://lutece-consulting.com",
+      },
+      areaServed: "FR",
+      availableLanguage: ["French", "English"],
+    },
+  })),
+};
+
 export default function ServicesPage() {
   return (
     <div className="pt-24 pb-24 px-6 max-w-5xl mx-auto">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }}
+      />
       <h1 className="text-4xl font-bold mb-4">Services</h1>
       <p className="text-lg text-[#a3a3a3] mb-16 max-w-2xl">
         3 offres de services centrées sur l&apos;IA agentique en production pour
