@@ -38,11 +38,15 @@ export default function Header() {
     <>
       <header
         role="banner"
-        className={`fixed top-0 left-0 right-0 z-50 h-[72px] transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 h-[56px] transition-all duration-300 ${
           scrolled
-            ? "bg-[#0A0B10]/85 backdrop-blur-[12px] border-b border-white/[0.06]"
+            ? "backdrop-blur-[12px] border-b"
             : "bg-transparent"
         }`}
+        style={scrolled ? {
+          background: "rgba(8,8,12,0.92)",
+          borderColor: "var(--border-faint)",
+        } : undefined}
       >
         <div className="container h-full flex items-center justify-between">
 
@@ -53,49 +57,52 @@ export default function Header() {
             aria-label="LUTECE Consulting — Retour à l'accueil"
           >
             <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-              style={{ background: "linear-gradient(135deg, #7C5CFF 0%, #4DD0FF 100%)" }}
+              className="w-7 h-7 flex items-center justify-center shrink-0"
+              style={{ background: "var(--gradient-primary)" }}
               aria-hidden="true"
             >
-              <span className="text-white font-black text-[18px] leading-none font-mono">L</span>
+              <span className="font-black text-[16px] leading-none font-mono" style={{ color: "var(--bg-base)" }}>L</span>
             </div>
-            <span className="font-mono text-[13px] font-bold text-[#F5F6F8] leading-none">
-              LUTECE<span className="text-[#7A7E8C]">.consulting</span>
+            <span className="font-mono text-[12px] font-bold leading-none tracking-[0.06em] uppercase" style={{ color: "var(--text-primary)" }}>
+              LUTECE<span style={{ color: "var(--text-muted)" }}>.consulting</span>
             </span>
           </Link>
 
           {/* Desktop nav */}
           <nav
-            className="hidden md:flex items-center gap-7"
+            className="hidden md:flex items-center gap-8"
             aria-label="Navigation principale"
           >
             {NAV.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm text-[#7A7E8C] hover:text-[#F5F6F8] transition-colors duration-150"
+                className="font-mono text-[11px] tracking-[0.1em] uppercase transition-colors duration-150"
+                style={{ color: "var(--text-muted)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-primary)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-muted)")}
               >
                 {item.label}
               </Link>
             ))}
           </nav>
 
-          {/* Right side */}
+          {/* Right: availability + burger */}
           <div className="flex items-center gap-3">
-            {/* Availability badge */}
             <div
-              className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#4ADE80]/25 bg-[#4ADE80]/5"
+              className="hidden md:flex items-center gap-2 px-2.5 py-1 border"
+              style={{ borderColor: "rgba(74,222,128,0.3)", background: "rgba(74,222,128,0.04)" }}
               aria-label="Statut : disponible à partir de juin 2026"
             >
               <span className="pulse-dot" aria-hidden="true" />
-              <span className="text-[11px] font-mono text-[#4ADE80] tracking-[0.05em] whitespace-nowrap">
-                Disponible · juin&nbsp;2026
+              <span className="font-mono text-[10px] tracking-[0.08em] uppercase whitespace-nowrap" style={{ color: "var(--accent-success)" }}>
+                Dispo · juin&nbsp;2026
               </span>
             </div>
 
-            {/* Mobile burger */}
             <button
-              className="md:hidden flex items-center justify-center w-9 h-9 rounded-lg text-[#B4B7C1] hover:text-white hover:bg-white/[0.05] transition-colors"
+              className="md:hidden flex items-center justify-center w-8 h-8 transition-colors"
+              style={{ color: "var(--text-secondary)" }}
               onClick={() => setOpen(!open)}
               aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
               aria-expanded={open}
@@ -115,23 +122,23 @@ export default function Header() {
         }`}
         aria-hidden={!open}
       >
-        {/* Backdrop */}
         <div
-          className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+          className="absolute inset-0 bg-black/70"
           onClick={() => setOpen(false)}
         />
 
-        {/* Drawer panel */}
         <nav
-          className={`absolute top-0 right-0 h-full w-[280px] bg-[#0A0B10] border-l border-white/[0.06] flex flex-col transition-transform duration-300 ${
+          className={`absolute top-0 right-0 h-full w-[260px] flex flex-col transition-transform duration-300 border-l ${
             open ? "translate-x-0" : "translate-x-full"
           }`}
+          style={{ background: "var(--bg-base)", borderColor: "var(--border-default)" }}
           aria-label="Navigation mobile"
         >
-          <div className="h-[72px] flex items-center justify-end px-5">
+          <div className="h-[56px] flex items-center justify-end px-4 border-b" style={{ borderColor: "var(--border-faint)" }}>
             <button
               onClick={() => setOpen(false)}
-              className="flex items-center justify-center w-9 h-9 rounded-lg text-[#7A7E8C] hover:text-white hover:bg-white/[0.05] transition-colors"
+              className="flex items-center justify-center w-8 h-8 transition-colors"
+              style={{ color: "var(--text-muted)" }}
               aria-label="Fermer le menu"
             >
               <X size={18} />
@@ -143,7 +150,8 @@ export default function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="py-4 text-base font-medium text-[#B4B7C1] hover:text-white border-b border-white/[0.06] last:border-none transition-colors"
+                className="py-3.5 font-mono text-xs tracking-[0.1em] uppercase border-b transition-colors"
+                style={{ color: "var(--text-secondary)", borderColor: "var(--border-faint)" }}
                 onClick={() => setOpen(false)}
               >
                 {item.label}
@@ -151,13 +159,18 @@ export default function Header() {
             ))}
           </div>
 
-          <div className="px-6 pb-8">
-            <div className="flex items-center gap-2 px-3 py-2.5 rounded-xl border border-[#4ADE80]/25 bg-[#4ADE80]/5 w-fit">
+          <div className="px-6 pb-8 pt-4">
+            <div
+              className="flex items-center gap-2 px-3 py-2 border w-fit"
+              style={{ borderColor: "rgba(74,222,128,0.3)", background: "rgba(74,222,128,0.04)" }}
+            >
               <span className="pulse-dot" aria-hidden="true" />
-              <span className="text-xs font-mono text-[#4ADE80]">Disponible · juin 2026</span>
+              <span className="font-mono text-[10px] tracking-widest uppercase" style={{ color: "var(--accent-success)" }}>
+                Disponible · juin 2026
+              </span>
             </div>
-            <p className="mt-3 text-xs font-mono text-[#5A5E6B]">
-              TJM 850–1100 €/j · Paris / Hybride
+            <p className="mt-3 font-mono text-[10px] tracking-widest uppercase" style={{ color: "var(--text-dim)" }}>
+              TJM 850–1100 €/j · Paris
             </p>
           </div>
         </nav>

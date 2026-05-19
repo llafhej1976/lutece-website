@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, CheckCircle, MessageSquare } from "lucide-react";
+import { ArrowRight, CheckCircle } from "lucide-react";
+import CommandButton from "@/components/ui/terminal/CommandButton";
+import AsciiSeparator from "@/components/ui/terminal/AsciiSeparator";
 
 export const metadata: Metadata = {
   title: "Services IA Agentique — Architecture, LLMOps, EU AI Act",
@@ -29,7 +31,7 @@ const SERVICES = [
   {
     slug: "ai-platform-architecture",
     number: "01",
-    accent: "#4DD0FF",
+    accent: "var(--accent-cyan)",
     title: "Architecture de Plateforme IA",
     subtitle: "AI Platform Architecture",
     description:
@@ -46,7 +48,7 @@ const SERVICES = [
   {
     slug: "llmops-multi-llm",
     number: "02",
-    accent: "#7C5CFF",
+    accent: "var(--accent-violet)",
     title: "LLMOps & Quorum Multi-LLM",
     subtitle: "LLMOps & Multi-LLM Quorum",
     description:
@@ -146,7 +148,7 @@ const faqJsonLd = {
 
 export default function ServicesPage() {
   return (
-    <div className="pt-[72px]">
+    <div className="pt-[56px]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }}
@@ -157,15 +159,15 @@ export default function ServicesPage() {
       />
 
       {/* ── Header ──────────────────────────────────── */}
-      <section className="section-spacing dot-grid">
+      <section className="section-spacing">
         <div className="container">
           <div className="max-w-3xl animate-fade-up">
             <p className="kicker mb-3">Offres de mission</p>
-            <h1 className="text-4xl md:text-5xl font-black mb-6 text-[#F5F6F8]">
+            <h1 className="font-black mb-6" style={{ fontSize: "clamp(2.25rem,5vw,3.5rem)", color: "var(--text-primary)" }}>
               3 services,{" "}
               <span className="gradient-text">un seul focus</span>
             </h1>
-            <p className="text-lg text-[#B4B7C1] leading-relaxed max-w-2xl">
+            <p className="text-lg leading-relaxed max-w-2xl" style={{ color: "var(--text-secondary)" }}>
               IA agentique en production pour environnements régulés. Pas de
               conseil théorique — architecture, code, déploiement, mesure.
               Disponible à partir du 2 juin 2026.
@@ -175,21 +177,21 @@ export default function ServicesPage() {
       </section>
 
       {/* ── Services ─────────────────────────────────── */}
-      <section className="section-spacing border-t border-white/[0.06]">
+      <section className="section-spacing border-t" style={{ borderColor: "var(--border-faint)" }}>
         <div className="container">
-          <div className="space-y-8 max-w-4xl">
+          <div className="space-y-px max-w-4xl" style={{ background: "var(--border-default)" }}>
             {SERVICES.map((service, i) => (
               <div
                 key={service.slug}
                 id={service.slug}
-                className={`card-gradient-border rounded-xl p-8 animate-fade-up delay-${i + 1}`}
-                style={{ "--hover-accent": service.accent } as React.CSSProperties}
+                className={`p-8 animate-fade-up delay-${i + 1}`}
+                style={{ background: "var(--bg-elevated)" }}
               >
                 <div className="flex items-start gap-6 md:gap-8">
                   {/* Number */}
                   <div
-                    className="text-5xl font-mono font-black shrink-0 leading-none"
-                    style={{ color: service.accent }}
+                    className="font-mono font-black shrink-0 leading-none"
+                    style={{ fontSize: "clamp(2.5rem,5vw,3.5rem)", color: service.accent }}
                     aria-hidden="true"
                   >
                     {service.number}
@@ -197,31 +199,32 @@ export default function ServicesPage() {
 
                   <div className="flex-1 min-w-0">
                     <div className="mb-4">
-                      <h2 className="text-2xl font-bold text-[#F5F6F8] mb-1">
+                      <h2 className="text-2xl font-bold mb-1" style={{ color: "var(--text-primary)" }}>
                         {service.title}
                       </h2>
-                      <p className="text-xs font-mono text-[#5A5E6B] tracking-wider uppercase">
+                      <p className="font-mono text-[10px] tracking-[0.14em] uppercase" style={{ color: "var(--text-dim)" }}>
                         {service.subtitle}
                       </p>
                     </div>
 
-                    <p className="text-[#B4B7C1] leading-relaxed mb-6">
+                    <p className="leading-relaxed mb-6" style={{ color: "var(--text-secondary)" }}>
                       {service.description}
                     </p>
 
                     {/* Deliverables */}
                     <div className="mb-6">
-                      <p className="text-xs font-mono text-[#7A7E8C] uppercase tracking-widest mb-3">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.14em] mb-3" style={{ color: "var(--text-muted)" }}>
                         Livrables typiques
                       </p>
                       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         {service.deliverables.map((d) => (
                           <li
                             key={d}
-                            className="text-sm text-[#B4B7C1] flex items-start gap-2"
+                            className="text-sm flex items-start gap-2"
+                            style={{ color: "var(--text-secondary)" }}
                           >
                             <CheckCircle
-                              size={14}
+                              size={13}
                               className="shrink-0 mt-0.5"
                               style={{ color: service.accent }}
                             />
@@ -236,11 +239,11 @@ export default function ServicesPage() {
                       {service.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="text-xs font-mono px-2.5 py-1 rounded-full border"
+                          className="font-mono text-[10px] px-2.5 py-1 border"
                           style={{
-                            borderColor: service.accent + "40",
+                            borderColor: `color-mix(in srgb, ${service.accent} 30%, transparent)`,
                             color: service.accent,
-                            background: service.accent + "08",
+                            background: `color-mix(in srgb, ${service.accent} 6%, transparent)`,
                           }}
                         >
                           {tag}
@@ -255,28 +258,35 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      <AsciiSeparator label="FAQ" className="container" />
+
       {/* ── FAQ ──────────────────────────────────────── */}
-      <section className="section-spacing border-t border-white/[0.06]">
+      <section className="section-spacing border-t" style={{ borderColor: "var(--border-faint)" }}>
         <div className="container max-w-3xl">
           <p className="kicker mb-3 text-center">FAQ</p>
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-12 text-[#F5F6F8]">
+          <h2 className="font-bold text-center mb-12" style={{ fontSize: "clamp(1.5rem,3vw,2rem)", color: "var(--text-primary)" }}>
             Questions fréquentes
           </h2>
 
-          <div className="space-y-4">
+          <div className="space-y-px" style={{ background: "var(--border-default)" }}>
             {faqJsonLd.mainEntity.map((faq) => (
               <details
                 key={faq.name}
-                className="card rounded-xl group"
+                className="group"
+                style={{ background: "var(--bg-elevated)" }}
               >
-                <summary className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none select-none text-[#F5F6F8] font-medium hover:text-[#4DD0FF] transition-colors">
+                <summary
+                  className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none select-none font-medium transition-colors"
+                  style={{ color: "var(--text-primary)" }}
+                >
                   {faq.name}
                   <ArrowRight
-                    size={16}
-                    className="shrink-0 text-[#5A5E6B] group-open:rotate-90 transition-transform duration-200"
+                    size={14}
+                    className="shrink-0 group-open:rotate-90 transition-transform duration-200"
+                    style={{ color: "var(--text-muted)" }}
                   />
                 </summary>
-                <div className="px-5 pb-5 pt-0 text-sm text-[#B4B7C1] leading-relaxed border-t border-white/[0.06]">
+                <div className="px-5 pb-5 pt-0 text-sm leading-relaxed border-t" style={{ borderColor: "var(--border-faint)", color: "var(--text-secondary)" }}>
                   <p className="pt-4">{faq.acceptedAnswer.text}</p>
                 </div>
               </details>
@@ -286,22 +296,21 @@ export default function ServicesPage() {
       </section>
 
       {/* ── CTA ──────────────────────────────────────── */}
-      <section className="section-spacing border-t border-white/[0.06]">
+      <section className="section-spacing border-t" style={{ borderColor: "var(--border-faint)", background: "var(--bg-elevated)" }}>
         <div className="container">
           <div className="max-w-xl mx-auto text-center">
-            <MessageSquare size={32} className="text-[#4DD0FF] mx-auto mb-4" />
-            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#F5F6F8]">
+            <h2 className="font-bold mb-4" style={{ fontSize: "clamp(1.5rem,3vw,2rem)", color: "var(--text-primary)" }}>
               Discutons de votre projet
             </h2>
-            <p className="text-[#7A7E8C] mb-8 leading-relaxed">
+            <p className="mb-8 leading-relaxed" style={{ color: "var(--text-tertiary)" }}>
               TJM{" "}
-              <span className="text-[#F5F6F8] font-semibold">850–1100 €/j</span>{" "}
+              <span className="font-semibold" style={{ color: "var(--text-primary)" }}>850–1100 €/j</span>{" "}
               selon contexte. Paris / hybride.
-              Disponible <span className="text-[#F5F6F8] font-semibold">juin 2026</span>.
+              Disponible <span className="font-semibold" style={{ color: "var(--text-primary)" }}>juin 2026</span>.
             </p>
-            <Link href="/contact" className="btn btn-primary btn-lg">
+            <CommandButton href="/contact" variant="primary" size="lg" as="a">
               Prendre contact →
-            </Link>
+            </CommandButton>
           </div>
         </div>
       </section>

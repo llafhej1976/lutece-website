@@ -23,42 +23,49 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer role="contentinfo" className="border-t border-white/[0.06] bg-[#0A0B10]">
+    <footer
+      role="contentinfo"
+      className="border-t"
+      style={{ borderColor: "var(--border-faint)", background: "var(--bg-base)" }}
+    >
       <div className="container py-14">
-        <div className="grid grid-cols-1 md:grid-cols-[200px_1fr_1fr_1fr] gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-[180px_1fr_1fr_1fr] gap-10">
 
           {/* Brand */}
           <div>
             <Link
               href="/"
-              className="flex items-center gap-2.5 mb-4"
+              className="flex items-center gap-2 mb-5"
               aria-label="LUTECE Consulting — Retour à l'accueil"
             >
               <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                style={{ background: "linear-gradient(135deg, #7C5CFF 0%, #4DD0FF 100%)" }}
+                className="w-7 h-7 flex items-center justify-center shrink-0"
+                style={{ background: "var(--gradient-primary)" }}
                 aria-hidden="true"
               >
-                <span className="text-white font-black text-[18px] leading-none font-mono">L</span>
+                <span className="font-black text-[15px] leading-none font-mono" style={{ color: "var(--bg-base)" }}>L</span>
               </div>
-              <span className="font-mono text-[13px] font-bold text-[#F5F6F8] leading-none">
-                LUTECE<span className="text-[#7A7E8C]">.consulting</span>
+              <span className="font-mono text-[12px] font-bold leading-none tracking-[0.06em] uppercase" style={{ color: "var(--text-primary)" }}>
+                LUTECE<span style={{ color: "var(--text-muted)" }}>.consulting</span>
               </span>
             </Link>
-            <p className="text-xs text-[#5A5E6B] leading-relaxed mb-3">
+            <p className="font-mono text-[11px] leading-relaxed mb-4" style={{ color: "var(--text-dim)" }}>
               LUTECE Consulting SAS<br />
-              60 rue François Ier, 75008 Paris<br />
+              60 rue François Ier<br />
+              75008 Paris<br />
               SIREN 882&nbsp;573&nbsp;215
             </p>
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               <span className="pulse-dot" aria-hidden="true" />
-              <span className="text-xs font-mono text-[#4ADE80]">Disponible · juin 2026</span>
+              <span className="font-mono text-[11px] tracking-[0.06em] uppercase" style={{ color: "var(--accent-success)" }}>
+                Disponible · juin 2026
+              </span>
             </div>
           </div>
 
           {/* Navigation */}
           <div>
-            <p className="text-xs font-mono text-[#5A5E6B] uppercase tracking-widest mb-4">
+            <p className="font-mono text-[10px] uppercase tracking-[0.14em] mb-4" style={{ color: "var(--text-dim)" }}>
               Navigation
             </p>
             <ul className="space-y-2.5">
@@ -66,7 +73,8 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-[#7A7E8C] hover:text-[#F5F6F8] transition-colors"
+                    className="text-sm transition-colors"
+                    style={{ color: "var(--text-muted)" }}
                   >
                     {link.label}
                   </Link>
@@ -77,7 +85,7 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <p className="text-xs font-mono text-[#5A5E6B] uppercase tracking-widest mb-4">
+            <p className="font-mono text-[10px] uppercase tracking-[0.14em] mb-4" style={{ color: "var(--text-dim)" }}>
               Services
             </p>
             <ul className="space-y-2.5">
@@ -85,7 +93,8 @@ export default function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-[#7A7E8C] hover:text-[#F5F6F8] transition-colors leading-tight block"
+                    className="text-sm leading-tight block transition-colors"
+                    style={{ color: "var(--text-muted)" }}
                   >
                     {link.label}
                   </Link>
@@ -96,14 +105,15 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <p className="text-xs font-mono text-[#5A5E6B] uppercase tracking-widest mb-4">
+            <p className="font-mono text-[10px] uppercase tracking-[0.14em] mb-4" style={{ color: "var(--text-dim)" }}>
               Contact
             </p>
             <ul className="space-y-2.5">
               <li>
                 <a
                   href="mailto:loic.lafhej@lutece-consulting.com"
-                  className="text-sm text-[#7A7E8C] hover:text-[#F5F6F8] transition-colors break-all"
+                  className="text-sm transition-colors break-all"
+                  style={{ color: "var(--text-muted)" }}
                 >
                   loic.lafhej@lutece-consulting.com
                 </a>
@@ -111,19 +121,21 @@ export default function Footer() {
               <li>
                 <a
                   href="tel:+33652561133"
-                  className="text-sm text-[#7A7E8C] hover:text-[#F5F6F8] transition-colors font-mono"
+                  className="text-sm transition-colors font-mono"
+                  style={{ color: "var(--text-muted)" }}
                 >
                   +33 6 52 56 11 33
                 </a>
               </li>
-              <li className="pt-2 border-t border-white/[0.04]" />
+              <li className="pt-2 border-t" style={{ borderColor: "var(--border-faint)" }} />
               {EXTERNAL_LINKS.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-[#7A7E8C] hover:text-[#F5F6F8] transition-colors"
+                    className="text-sm transition-colors"
+                    style={{ color: "var(--text-muted)" }}
                   >
                     {link.label} ↗
                   </a>
@@ -134,11 +146,14 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 pt-6 border-t border-white/[0.06] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <p className="text-xs text-[#5A5E6B]">
+        <div
+          className="mt-12 pt-6 border-t flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+          style={{ borderColor: "var(--border-faint)" }}
+        >
+          <p className="font-mono text-[11px]" style={{ color: "var(--text-dim)" }}>
             © {year} LUTECE Consulting SAS · SAS au capital de 1 000 € · SIREN 882&nbsp;573&nbsp;215 · TVA FR91882573215
           </p>
-          <p className="text-xs font-mono text-[#3A3E4C]">
+          <p className="font-mono text-[10px] tracking-[0.06em]" style={{ color: "var(--border-bright)" }} aria-hidden="true">
             TJM 850–1100 €/j · Paris / Hybride · Disponible juin 2026
           </p>
         </div>

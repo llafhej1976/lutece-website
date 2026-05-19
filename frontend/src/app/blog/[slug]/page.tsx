@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Clock, Calendar, Tag } from "lucide-react";
+import CommandButton from "@/components/ui/terminal/CommandButton";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 const PILLAR: Record<number, { label: string; color: string }> = {
-  1: { label: "IA Agentique Régulée", color: "#4DD0FF" },
-  2: { label: "Quorum Multi-LLM & LLMOps", color: "#7C5CFF" },
+  1: { label: "IA Agentique Régulée", color: "var(--accent-violet)" },
+  2: { label: "Quorum Multi-LLM & LLMOps", color: "var(--accent-cyan)" },
   3: { label: "AI Governance & Conformité", color: "#E879F9" },
 };
 
@@ -73,10 +74,7 @@ function formatDate(iso: string): string {
 }
 
 function renderContent(raw: string): React.ReactNode[] {
-  // Strip leading H1 (already rendered as page <h1> from article.title_fr)
   const content = raw.replace(/^#[ \t]+[^\n]+\n?/, "");
-
-  // Split preserving code fences — odd-indexed elements are code blocks
   const parts = content.split(/(```[\w]*\n[\s\S]*?```)/);
   const elements: React.ReactNode[] = [];
 
@@ -89,12 +87,20 @@ function renderContent(raw: string): React.ReactNode[] {
       elements.push(
         <div key={`code-${partIdx}`} className="my-6">
           {lang && (
-            <div className="flex items-center gap-2 px-4 py-2 bg-[#0A0B10] border border-white/[0.1] border-b-0 rounded-t-lg">
-              <span className="text-xs font-mono text-[#5A5E6B]">{lang}</span>
+            <div
+              className="flex items-center gap-2 px-4 py-2 border border-b-0"
+              style={{ background: "var(--bg-code)", borderColor: "var(--border-default)" }}
+            >
+              <span className="font-mono text-[10px] uppercase tracking-[0.1em]" style={{ color: "var(--text-muted)" }}>{lang}</span>
             </div>
           )}
           <pre
-            className={`bg-[#0A0B10] border border-white/[0.1] ${lang ? "rounded-b-lg rounded-tr-lg" : "rounded-lg"} p-5 overflow-x-auto text-sm text-[#4DD0FF] font-mono leading-relaxed`}
+            className={`border overflow-x-auto text-sm font-mono leading-relaxed p-5`}
+            style={{
+              background: "var(--bg-code)",
+              borderColor: "var(--border-default)",
+              color: "var(--accent-cyan)",
+            }}
           >
             <code>{code}</code>
           </pre>
@@ -103,7 +109,6 @@ function renderContent(raw: string): React.ReactNode[] {
       return;
     }
 
-    // Normal prose — split on double newlines
     part.split("\n\n").forEach((block, blockIdx) => {
       const trimmed = block.trim();
       if (!trimmed) return;
@@ -111,19 +116,19 @@ function renderContent(raw: string): React.ReactNode[] {
 
       if (trimmed.startsWith("# ")) {
         elements.push(
-          <h2 key={key} className="text-2xl font-bold text-[#F5F6F8] mt-10 mb-4">
+          <h2 key={key} className="text-2xl font-bold mt-10 mb-4" style={{ color: "var(--text-primary)" }}>
             {trimmed.slice(2)}
           </h2>
         );
       } else if (trimmed.startsWith("## ")) {
         elements.push(
-          <h3 key={key} className="text-xl font-semibold text-[#F5F6F8] mt-8 mb-3">
+          <h3 key={key} className="text-xl font-semibold mt-8 mb-3" style={{ color: "var(--text-primary)" }}>
             {trimmed.slice(3)}
           </h3>
         );
       } else if (trimmed.startsWith("### ")) {
         elements.push(
-          <h4 key={key} className="text-lg font-semibold text-[#B4B7C1] mt-6 mb-2">
+          <h4 key={key} className="text-lg font-semibold mt-6 mb-2" style={{ color: "var(--text-secondary)" }}>
             {trimmed.slice(4)}
           </h4>
         );
@@ -132,8 +137,8 @@ function renderContent(raw: string): React.ReactNode[] {
         elements.push(
           <ul key={key} className="my-4 space-y-2">
             {items.map((item, j) => (
-              <li key={j} className="text-[#B4B7C1] flex items-start gap-2 text-sm leading-relaxed">
-                <span className="text-[#4DD0FF] shrink-0 mt-1">›</span>
+              <li key={j} className="flex items-start gap-2 text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+                <span className="shrink-0 mt-1" style={{ color: "var(--accent-cyan)" }}>›</span>
                 {item.replace(/^[-*]\s/, "")}
               </li>
             ))}
@@ -143,14 +148,15 @@ function renderContent(raw: string): React.ReactNode[] {
         elements.push(
           <blockquote
             key={key}
-            className="my-6 pl-4 border-l-2 border-[#7C5CFF] text-[#B4B7C1] italic text-sm leading-relaxed"
+            className="my-6 pl-4 border-l-2 italic text-sm leading-relaxed"
+            style={{ borderColor: "var(--accent-violet)", color: "var(--text-secondary)" }}
           >
             {trimmed.slice(2)}
           </blockquote>
         );
       } else {
         elements.push(
-          <p key={key} className="text-[#B4B7C1] leading-relaxed text-sm my-4">
+          <p key={key} className="leading-relaxed text-sm my-4" style={{ color: "var(--text-secondary)" }}>
             {trimmed}
           </p>
         );
@@ -194,84 +200,86 @@ export default async function ArticlePage({
   };
 
   return (
-    <div className="pt-[72px]">
+    <div className="pt-[56px]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
 
       {/* ── Header strip ──────────────────────────── */}
-      <section className="section-spacing dot-grid">
+      <section className="section-spacing">
         <div className="container max-w-3xl">
 
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm text-[#7A7E8C] hover:text-[#F5F6F8] transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-sm transition-colors mb-8"
+            style={{ color: "var(--text-muted)" }}
           >
-            <ArrowLeft size={15} />
+            <ArrowLeft size={14} />
             Retour au blog
           </Link>
 
           {/* Pillar + meta */}
           <div className="flex flex-wrap items-center gap-3 mb-5">
             <span
-              className="text-xs font-mono px-2.5 py-1 rounded-full border"
+              className="font-mono text-[10px] px-2.5 py-1 border"
               style={{
                 color: pillar.color,
-                borderColor: pillar.color + "40",
-                background: pillar.color + "08",
+                borderColor: `color-mix(in srgb, ${pillar.color} 30%, transparent)`,
+                background: `color-mix(in srgb, ${pillar.color} 6%, transparent)`,
               }}
             >
               {pillar.label}
             </span>
-            <span className="flex items-center gap-1.5 text-xs text-[#5A5E6B] font-mono">
-              <Clock size={11} />
+            <span className="flex items-center gap-1.5 font-mono text-[10px]" style={{ color: "var(--text-dim)" }}>
+              <Clock size={10} />
               {article.reading_time_minutes} min de lecture
             </span>
             {article.published_at && (
-              <span className="flex items-center gap-1.5 text-xs text-[#5A5E6B] font-mono">
-                <Calendar size={11} />
+              <span className="flex items-center gap-1.5 font-mono text-[10px]" style={{ color: "var(--text-dim)" }}>
+                <Calendar size={10} />
                 {formatDate(article.published_at)}
               </span>
             )}
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-black text-[#F5F6F8] mb-4 leading-tight">
+          <h1 className="font-black mb-4 leading-tight" style={{ fontSize: "clamp(1.75rem,4vw,2.5rem)", color: "var(--text-primary)" }}>
             {article.title_fr}
           </h1>
 
-          <p className="text-lg text-[#B4B7C1] leading-relaxed mb-6">
+          <p className="text-lg leading-relaxed mb-6" style={{ color: "var(--text-secondary)" }}>
             {article.excerpt_fr}
           </p>
 
-          <div className="flex items-center gap-3 text-sm text-[#7A7E8C]">
+          <div className="flex items-center gap-3 text-sm" style={{ color: "var(--text-muted)" }}>
             <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-              style={{ background: "linear-gradient(135deg, #7C5CFF 0%, #4DD0FF 100%)" }}
+              className="w-7 h-7 flex items-center justify-center shrink-0"
+              style={{ background: "var(--gradient-primary)" }}
             >
-              <span className="text-white font-black text-[14px] font-mono">L</span>
+              <span className="font-black text-[13px] font-mono" style={{ color: "var(--bg-base)" }}>L</span>
             </div>
             <span>Loïc Lafhej</span>
-            <span className="text-[#3A3E4C]">·</span>
+            <span style={{ color: "var(--border-bright)" }}>·</span>
             <span>LUTECE Consulting</span>
           </div>
         </div>
       </section>
 
       {/* ── Content ──────────────────────────────── */}
-      <section className="section-spacing border-t border-white/[0.06]">
+      <section className="section-spacing border-t" style={{ borderColor: "var(--border-faint)" }}>
         <div className="container max-w-3xl">
           <article>
             {renderContent(article.content_fr)}
           </article>
 
           {/* Tags */}
-          <div className="flex flex-wrap gap-2 mt-10 pt-8 border-t border-white/[0.06]">
-            <Tag size={14} className="text-[#5A5E6B] mt-0.5" />
+          <div className="flex flex-wrap gap-2 mt-10 pt-8 border-t" style={{ borderColor: "var(--border-faint)" }}>
+            <Tag size={13} className="mt-0.5" style={{ color: "var(--text-dim)" }} />
             {article.tags.map((tag) => (
               <span
                 key={tag}
-                className="text-xs font-mono px-2.5 py-1 rounded-full border border-white/[0.08] text-[#7A7E8C]"
+                className="font-mono text-[10px] px-2.5 py-1 border"
+                style={{ borderColor: "var(--border-default)", color: "var(--text-muted)" }}
               >
                 {tag}
               </span>
@@ -279,17 +287,17 @@ export default async function ArticlePage({
           </div>
 
           {/* CTA */}
-          <div className="mt-10 card rounded-2xl p-7 text-center">
-            <p className="text-[#B4B7C1] mb-5 leading-relaxed">
+          <div className="mt-10 p-7 text-center border" style={{ borderColor: "var(--border-default)", background: "var(--bg-elevated)" }}>
+            <p className="mb-5 leading-relaxed" style={{ color: "var(--text-secondary)" }}>
               Une question sur cet article ou un projet IA à discuter ?
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
-              <Link href="/contact" className="btn btn-primary">
-                Me contacter →
-              </Link>
-              <Link href="/blog" className="btn btn-ghost">
+              <CommandButton href="/contact" variant="primary" as="a">
+                ./me-contacter →
+              </CommandButton>
+              <CommandButton href="/blog" variant="ghost" as="a">
                 ← Autres articles
-              </Link>
+              </CommandButton>
             </div>
           </div>
         </div>

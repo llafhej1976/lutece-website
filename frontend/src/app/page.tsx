@@ -5,7 +5,7 @@ import PromptLine from "@/components/ui/terminal/PromptLine";
 import CommandButton from "@/components/ui/terminal/CommandButton";
 import BlinkCursor from "@/components/ui/terminal/BlinkCursor";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "";
 
@@ -34,7 +34,7 @@ const PILLARS = [
   {
     icon: Layers,
     number: "01",
-    color: "#7C5CFF",
+    color: "var(--accent-violet)",
     title: "IA Agentique Régulée",
     desc: "Architectures multi-agents pour banque, assurance, santé. Gouvernance EU AI Act by design, PII Guard, audit chains.",
     tags: ["Agentic AI", "PII Guard", "Audit Chain", "EU AI Act"],
@@ -43,7 +43,7 @@ const PILLARS = [
   {
     icon: Layers,
     number: "02",
-    color: "#4DD0FF",
+    color: "var(--accent-cyan)",
     title: "Quorum Multi-LLM & LLMOps",
     desc: "Orchestration quorum N-LLM spécialisé par rôle. Observabilité (latence p95/p99, coût, qualité). Versioning prompts.",
     tags: ["Multi-LLM", "Observability", "LLMOps", "Python"],
@@ -52,7 +52,7 @@ const PILLARS = [
   {
     icon: FileCheck,
     number: "03",
-    color: "#4ADE80",
+    color: "var(--accent-success)",
     title: "AI Governance & Conformité",
     desc: "EU AI Act Art. 9-15, DORA, RGPD, AAOIFI. Model cards, AI risk register, audit chain SHA-256, rétention 7 ans.",
     tags: ["EU AI Act", "ISO 42001", "Risk Register", "DORA"],
@@ -110,7 +110,7 @@ export default async function HomePage() {
                   <PromptLine command="loic.lafhej@lutece-consulting.com" prefix="→" />
                   <PromptLine command="architect --env regulated --mode production" />
                   <PromptLine command="available --date 2026-06-02 --location Paris" prefix="→" />
-                  <PromptLine command="export TJM=&quot;850-1100 €/j&quot;" />
+                  <PromptLine command='export TJM="850-1100 €/j"' />
                 </div>
               </TerminalBox>
             </div>
@@ -185,19 +185,23 @@ export default async function HomePage() {
           STATS BAND
       ══════════════════════════════════════════════════════ */}
       <section
-        className="border-y border-white/[0.06] bg-[#11131A]"
+        className="border-y"
+        style={{ borderColor: "var(--border-default)", background: "var(--bg-elevated)" }}
         aria-label="Chiffres clés"
       >
-        <div className="container py-14">
+        <div className="container py-12">
           <dl className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {STATS.map((s) => (
               <div key={s.label} className="text-center">
-                <dt className="text-xs font-mono text-[#5A5E6B] uppercase tracking-[0.08em] mb-2">
+                <dt className="font-mono text-[10px] uppercase tracking-[0.12em] mb-2" style={{ color: "var(--text-dim)" }}>
                   {s.label}
                 </dt>
-                <dd className="text-[clamp(2rem,4vw,3rem)] font-bold font-mono text-[#F5F6F8] leading-none tracking-[-0.02em]">
+                <dd
+                  className="font-bold font-mono leading-none tracking-[-0.02em]"
+                  style={{ fontSize: "clamp(1.75rem,4vw,2.75rem)", color: "var(--text-primary)" }}
+                >
                   {s.value}
-                  <span className="text-[#7A7E8C] text-[0.55em]">{s.unit}</span>
+                  <span className="text-[0.55em]" style={{ color: "var(--text-muted)" }}>{s.unit}</span>
                 </dd>
               </div>
             ))}
@@ -211,45 +215,51 @@ export default async function HomePage() {
       <section className="section-spacing" aria-labelledby="pillars-heading">
         <div className="container">
           <header className="mb-12">
-            <p className="kicker text-[#7A7E8C] mb-3">Expertise</p>
-            <h2 id="pillars-heading" className="text-[clamp(1.75rem,3vw,2.25rem)] font-bold tracking-[-0.02em]">
+            <p className="kicker mb-3" style={{ color: "var(--text-muted)" }}>Expertise</p>
+            <h2 id="pillars-heading" className="font-bold tracking-[-0.02em]" style={{ fontSize: "clamp(1.75rem,3vw,2.25rem)", color: "var(--text-primary)" }}>
               3 piliers d&apos;expertise
             </h2>
           </header>
 
-          <div className="grid md:grid-cols-3 gap-5">
+          <div className="grid md:grid-cols-3 gap-px" style={{ background: "var(--border-default)" }}>
             {PILLARS.map((p) => {
               const Icon = p.icon;
               return (
-                <article key={p.number} className="card-interactive p-7 flex flex-col">
+                <article
+                  key={p.number}
+                  className="flex flex-col p-7 transition-colors duration-150"
+                  style={{ background: "var(--bg-elevated)" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--bg-overlay)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "var(--bg-elevated)")}
+                >
                   <div className="flex items-start justify-between mb-5">
                     <div
-                      className="w-10 h-10 rounded-lg flex items-center justify-center"
-                      style={{ background: `${p.color}18` }}
+                      className="w-9 h-9 flex items-center justify-center"
+                      style={{ background: `color-mix(in srgb, ${p.color} 12%, transparent)`, border: `1px solid color-mix(in srgb, ${p.color} 25%, transparent)` }}
                     >
-                      <Icon size={18} style={{ color: p.color }} aria-hidden="true" />
+                      <Icon size={16} style={{ color: p.color }} aria-hidden="true" />
                     </div>
                     <span
-                      className="font-mono text-xs font-semibold"
-                      style={{ color: `${p.color}60` }}
+                      className="font-mono text-xs font-bold"
+                      style={{ color: `color-mix(in srgb, ${p.color} 40%, transparent)` }}
                       aria-hidden="true"
                     >
                       {p.number}
                     </span>
                   </div>
 
-                  <h3 className="text-base font-semibold text-[#F5F6F8] mb-2">{p.title}</h3>
-                  <p className="text-sm text-[#7A7E8C] leading-[1.65] mb-5 flex-1">{p.desc}</p>
+                  <h3 className="text-sm font-semibold mb-2" style={{ color: "var(--text-primary)" }}>{p.title}</h3>
+                  <p className="text-sm leading-[1.65] mb-5 flex-1" style={{ color: "var(--text-tertiary)" }}>{p.desc}</p>
 
                   <div className="flex flex-wrap gap-1.5 mb-5">
                     {p.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="text-[11px] font-mono px-2 py-0.5 rounded border"
+                        className="font-mono text-[10px] px-2 py-0.5 border"
                         style={{
-                          borderColor: `${p.color}30`,
-                          color: `${p.color}CC`,
-                          background: `${p.color}08`,
+                          borderColor: `color-mix(in srgb, ${p.color} 25%, transparent)`,
+                          color: p.color,
+                          background: `color-mix(in srgb, ${p.color} 6%, transparent)`,
                         }}
                       >
                         {tag}
@@ -259,10 +269,11 @@ export default async function HomePage() {
 
                   <Link
                     href={p.href}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#7A7E8C] hover:text-[#F5F6F8] transition-colors mt-auto"
+                    className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.08em] transition-colors mt-auto"
+                    style={{ color: "var(--text-muted)" }}
                   >
                     En savoir plus
-                    <ArrowRight size={12} aria-hidden="true" />
+                    <ArrowRight size={11} aria-hidden="true" />
                   </Link>
                 </article>
               );
@@ -274,43 +285,47 @@ export default async function HomePage() {
       {/* ══════════════════════════════════════════════════════
           APPROACH — proof section
       ══════════════════════════════════════════════════════ */}
-      <section className="section-spacing bg-[#11131A] border-y border-white/[0.06]" aria-labelledby="approach-heading">
+      <section
+        className="section-spacing border-y"
+        style={{ borderColor: "var(--border-default)", background: "var(--bg-elevated)" }}
+        aria-labelledby="approach-heading"
+      >
         <div className="container">
           <div className="grid md:grid-cols-2 gap-16 items-center">
 
-            {/* Left — text */}
+            {/* Left */}
             <div>
-              <p className="kicker text-[#7A7E8C] mb-4">Approche</p>
-              <h2 id="approach-heading" className="text-[clamp(1.5rem,3vw,2rem)] font-bold tracking-[-0.02em] leading-[1.2] mb-5">
+              <p className="kicker mb-4">Approche</p>
+              <h2 id="approach-heading" className="font-bold tracking-[-0.02em] leading-[1.2] mb-5" style={{ fontSize: "clamp(1.5rem,3vw,2rem)", color: "var(--text-primary)" }}>
                 Pas de conseil théorique.<br />
-                J&apos;<span className="gradient-text">architecture, code,<br />déploie et mesure.</span>
+                <span className="gradient-text">Architecture, code,<br />déploiement, mesure.</span>
               </h2>
-              <p className="text-[#B4B7C1] leading-[1.7] mb-5">
+              <p className="leading-[1.7] mb-5" style={{ color: "var(--text-secondary)" }}>
                 2,5 ans d&apos;IA agentique en production dans des environnements régulés — banque,
                 assurance, infrastructures critiques. Expertise praticien EU AI Act dès la conception.
               </p>
-              <p className="text-[#7A7E8C] text-sm leading-[1.7]">
+              <p className="text-sm leading-[1.7]" style={{ color: "var(--text-tertiary)" }}>
                 Chaque mission livre du code, des ADR, des métriques vérifiables — pas des
                 recommandations PowerPoint.
               </p>
               <div className="mt-8">
-                <Link href="/about" className="btn btn-ghost">
+                <CommandButton href="/about" variant="ghost" as="a">
                   Parcours détaillé
-                  <ArrowRight size={14} aria-hidden="true" />
-                </Link>
+                  <ArrowRight size={13} aria-hidden="true" />
+                </CommandButton>
               </div>
             </div>
 
             {/* Right — proof grid */}
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4" role="list">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-px" role="list" style={{ background: "var(--border-default)" }}>
               {PROOF_ITEMS.map(({ icon: Icon, label, detail }) => (
-                <li key={label} className="card p-5 flex gap-4 items-start">
-                  <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 bg-[#7C5CFF]/10 mt-0.5">
-                    <Icon size={16} className="text-[#7C5CFF]" aria-hidden="true" />
+                <li key={label} className="p-5 flex gap-4 items-start" style={{ background: "var(--bg-elevated)" }}>
+                  <div className="w-8 h-8 flex items-center justify-center shrink-0 mt-0.5" style={{ background: "rgba(167,139,250,0.08)", border: "1px solid rgba(167,139,250,0.2)" }}>
+                    <Icon size={14} style={{ color: "var(--accent-violet)" }} aria-hidden="true" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-[#F5F6F8] mb-0.5">{label}</p>
-                    <p className="text-xs text-[#7A7E8C] leading-snug">{detail}</p>
+                    <p className="text-sm font-semibold mb-0.5" style={{ color: "var(--text-primary)" }}>{label}</p>
+                    <p className="text-xs leading-snug" style={{ color: "var(--text-muted)" }}>{detail}</p>
                   </div>
                 </li>
               ))}
@@ -322,13 +337,14 @@ export default async function HomePage() {
       {/* ══════════════════════════════════════════════════════
           TECH STRIP — marquee
       ══════════════════════════════════════════════════════ */}
-      <section className="py-8 overflow-hidden border-b border-white/[0.06]" aria-label="Stack technique">
+      <section className="py-8 overflow-hidden border-b" style={{ borderColor: "var(--border-default)" }} aria-label="Stack technique">
         <div className="marquee-wrapper" aria-hidden="true">
           <div className="marquee-track">
             {allTech.map((tech, i) => (
               <span
                 key={i}
-                className="shrink-0 text-xs font-mono px-4 py-1.5 rounded-full border border-white/[0.08] text-[#5A5E6B] hover:text-[#B4B7C1] hover:border-white/[0.14] transition-colors cursor-default"
+                className="shrink-0 font-mono text-[11px] px-3 py-1 border transition-colors cursor-default"
+                style={{ borderColor: "var(--border-default)", color: "var(--text-dim)" }}
               >
                 {tech}
               </span>
@@ -344,21 +360,22 @@ export default async function HomePage() {
         <div className="container">
           <div className="flex items-end justify-between mb-10">
             <div>
-              <p className="kicker text-[#7A7E8C] mb-2">Journal de bord</p>
-              <h2 id="blog-heading" className="text-[clamp(1.5rem,3vw,2rem)] font-bold tracking-[-0.02em]">
+              <p className="kicker mb-2">Journal de bord</p>
+              <h2 id="blog-heading" className="font-bold tracking-[-0.02em]" style={{ fontSize: "clamp(1.5rem,3vw,2rem)", color: "var(--text-primary)" }}>
                 Publications
               </h2>
             </div>
             <Link
               href="/blog"
-              className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-[#7A7E8C] hover:text-[#F5F6F8] transition-colors"
+              className="hidden sm:inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.08em] transition-colors"
+              style={{ color: "var(--text-muted)" }}
             >
-              Voir tout <ArrowRight size={12} aria-hidden="true" />
+              Voir tout <ArrowRight size={11} aria-hidden="true" />
             </Link>
           </div>
 
           {articles.length > 0 ? (
-            <div className="grid md:grid-cols-3 gap-5">
+            <div className="grid md:grid-cols-3 gap-px" style={{ background: "var(--border-default)" }}>
               {articles.map((a: {
                 slug: string;
                 pillar: number;
@@ -366,32 +383,39 @@ export default async function HomePage() {
                 excerpt_fr: string;
                 reading_time_minutes: number;
               }) => {
-                const c = a.pillar === 1 ? "#7C5CFF" : a.pillar === 2 ? "#4DD0FF" : "#4ADE80";
+                const c = a.pillar === 1 ? "var(--accent-violet)" : a.pillar === 2 ? "var(--accent-cyan)" : "var(--accent-success)";
                 return (
-                  <Link key={a.slug} href={`/blog/${a.slug}`} className="card-interactive p-6 block group">
-                    <div className="w-7 h-0.5 rounded mb-4" style={{ background: c }} />
-                    <h3 className="text-sm font-semibold text-[#F5F6F8] mb-2 group-hover:text-[#7C5CFF] transition-colors line-clamp-2">
+                  <Link
+                    key={a.slug}
+                    href={`/blog/${a.slug}`}
+                    className="block p-6 group transition-colors"
+                    style={{ background: "var(--bg-elevated)" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = "var(--bg-overlay)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.background = "var(--bg-elevated)")}
+                  >
+                    <div className="w-6 h-px mb-4" style={{ background: c }} aria-hidden="true" />
+                    <h3 className="text-sm font-semibold mb-2 line-clamp-2 transition-colors" style={{ color: "var(--text-primary)" }}>
                       {a.title_fr}
                     </h3>
-                    <p className="text-xs text-[#7A7E8C] leading-[1.6] line-clamp-3 mb-4">{a.excerpt_fr}</p>
-                    <span className="text-[11px] font-mono text-[#5A5E6B]">{a.reading_time_minutes} min de lecture</span>
+                    <p className="text-xs leading-[1.6] line-clamp-3 mb-4" style={{ color: "var(--text-tertiary)" }}>{a.excerpt_fr}</p>
+                    <span className="font-mono text-[10px]" style={{ color: "var(--text-dim)" }}>{a.reading_time_minutes} min de lecture</span>
                   </Link>
                 );
               })}
             </div>
           ) : (
-            <div className="card-gradient-border p-10 max-w-xl">
-              <p className="kicker text-[#7A7E8C] mb-3">En cours d&apos;écriture</p>
-              <h3 className="text-lg font-semibold text-[#F5F6F8] mb-3">
+            <div className="border p-10 max-w-xl" style={{ borderColor: "var(--border-default)", background: "var(--bg-elevated)" }}>
+              <p className="kicker mb-3">En cours d&apos;écriture</p>
+              <h3 className="text-lg font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
                 Premier article à paraître prochainement
               </h3>
-              <p className="text-sm text-[#7A7E8C] leading-[1.65] mb-5">
+              <p className="text-sm leading-[1.65] mb-5" style={{ color: "var(--text-tertiary)" }}>
                 Architectures agentiques en production, patterns quorum N-LLM,
                 conformité EU AI Act — retours d&apos;expérience terrain.
               </p>
               <div className="flex flex-wrap gap-2 mb-6">
                 {["Architecture agentique", "LLMOps", "EU AI Act"].map((t) => (
-                  <span key={t} className="text-[11px] font-mono px-2.5 py-1 rounded border border-white/[0.08] text-[#5A5E6B]">
+                  <span key={t} className="font-mono text-[10px] px-2.5 py-1 border" style={{ borderColor: "var(--border-default)", color: "var(--text-muted)" }}>
                     {t}
                   </span>
                 ))}
@@ -400,9 +424,10 @@ export default async function HomePage() {
                 href="https://www.linkedin.com/in/lafhej-loic-15a79a3"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#7C5CFF] hover:text-[#9B7FFF] transition-colors"
+                className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.08em] transition-colors"
+                style={{ color: "var(--accent-violet)" }}
               >
-                Suivre sur LinkedIn <ArrowRight size={14} aria-hidden="true" />
+                Suivre sur LinkedIn <ArrowRight size={13} aria-hidden="true" />
               </a>
             </div>
           )}
@@ -412,23 +437,27 @@ export default async function HomePage() {
       {/* ══════════════════════════════════════════════════════
           CTA FINAL
       ══════════════════════════════════════════════════════ */}
-      <section className="section-spacing bg-[#11131A] border-t border-white/[0.06]" aria-labelledby="cta-heading">
+      <section
+        className="section-spacing border-t"
+        style={{ borderColor: "var(--border-default)", background: "var(--bg-elevated)" }}
+        aria-labelledby="cta-heading"
+      >
         <div className="container text-center max-w-[640px]">
-          <p className="kicker text-[#7A7E8C] mb-4">Contact</p>
-          <h2 id="cta-heading" className="text-[clamp(1.75rem,3vw,2.5rem)] font-bold tracking-[-0.02em] mb-4">
+          <p className="kicker mb-4">Contact</p>
+          <h2 id="cta-heading" className="font-bold tracking-[-0.02em] mb-4" style={{ fontSize: "clamp(1.75rem,3vw,2.5rem)", color: "var(--text-primary)" }}>
             Parlons de votre projet.
           </h2>
-          <p className="text-[#B4B7C1] leading-[1.65] mb-8">
+          <p className="leading-[1.65] mb-8" style={{ color: "var(--text-secondary)" }}>
             Disponible à partir du{" "}
-            <strong className="text-[#F5F6F8] font-semibold">2 juin 2026</strong> pour des missions
+            <strong className="font-semibold" style={{ color: "var(--text-primary)" }}>2 juin 2026</strong> pour des missions
             d&apos;architecture IA en environnements régulés. Premier appel de découverte 30 min,
             gratuit.
           </p>
-          <Link href="/contact" className="btn btn-primary btn-lg">
+          <CommandButton href="/contact" variant="primary" size="lg" as="a">
             Démarrer une discussion
-            <ArrowRight size={16} aria-hidden="true" />
-          </Link>
-          <p className="mt-6 text-xs font-mono text-[#5A5E6B]">
+            <ArrowRight size={15} aria-hidden="true" />
+          </CommandButton>
+          <p className="mt-6 font-mono text-xs" style={{ color: "var(--text-dim)" }}>
             loic.lafhej@lutece-consulting.com · +33 6 52 56 11 33
           </p>
         </div>
