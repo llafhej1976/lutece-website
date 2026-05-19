@@ -13,7 +13,7 @@ from app.models.base import Base
 TEST_DATABASE_URL = "postgresql+asyncpg://test:test@localhost:5432/test_db"
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 async def db_engine():
     engine = create_async_engine(TEST_DATABASE_URL, echo=False)
     async with engine.begin() as conn:
