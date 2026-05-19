@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s | LUTECE Consulting — Architecte IA Paris",
   },
   description:
-    "Loïc Lafhej, Architecte IA Agentique Senior à Paris. LUTECE Consulting SAS. Spécialiste systèmes multi-agents, LLMOps, conformité EU AI Act, DORA. DEA IA Paris 13. 23 ans d'expérience IT. Disponible juin 2026. TJM 850–1100€.",
+    "Architecte IA Agentique Senior à Paris. Multi-agents, LLMOps, EU AI Act, DORA. DEA IA Paris 13. Disponible juin 2026. TJM 850–1100€.",
   keywords: [
     "architecte IA Paris",
     "architecte IA agentique",

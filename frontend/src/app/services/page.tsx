@@ -5,7 +5,7 @@ import { ArrowRight, CheckCircle, MessageSquare } from "lucide-react";
 export const metadata: Metadata = {
   title: "Services IA Agentique — Architecture, LLMOps, EU AI Act",
   description:
-    "3 offres de services en architecture IA agentique pour environnements régulés : Architecture Plateforme IA (banque/assurance), LLMOps & Quorum Multi-LLM, Conformité EU AI Act Articles 9-15. Paris. Loïc Lafhej, LUTECE Consulting.",
+    "Architecture IA agentique pour environnements régulés : Plateforme IA, LLMOps Quorum Multi-LLM, Conformité EU AI Act Art. 9-15. Paris. Loïc Lafhej.",
   keywords: [
     "architecture plateforme IA",
     "LLMOps Paris",

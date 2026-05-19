@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Blog IA Agentique — LLMOps, EU AI Act, Multi-LLM",
   description:
-    "Retours d'expérience de Loïc Lafhej sur l'IA agentique en production. Architectures multi-agents, LLMOps, observabilité IA, conformité EU AI Act. Patterns réels, métriques, code.",
+    "Retours d'expérience sur l'IA agentique en production. Multi-agents, LLMOps, EU AI Act — patterns réels, métriques, code. Loïc Lafhej, LUTECE Consulting.",
   keywords: [
     "blog IA agentique",
     "LLMOps articles",

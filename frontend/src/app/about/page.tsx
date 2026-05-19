@@ -5,7 +5,7 @@ import { Mail, Linkedin, MapPin, Calendar, GraduationCap, Briefcase, CheckCircle
 export const metadata: Metadata = {
   title: "À propos — Loïc Lafhej, Architecte IA Agentique Senior",
   description:
-    "23 ans d'expérience IT, DEA Intelligence Artificielle Paris 13 (2003), 2,5 ans d'IA agentique en production. Spécialiste systèmes multi-agents, LLMOps, EU AI Act pour environnements régulés.",
+    "Loïc Lafhej, 23 ans IT, DEA IA Paris 13. Architecte IA agentique en production. Multi-agents, LLMOps, EU AI Act. Disponible juin 2026.",
   keywords: [
     "Loïc Lafhej architecte IA",
     "DEA intelligence artificielle Paris 13",
