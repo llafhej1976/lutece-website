@@ -1,55 +1,147 @@
+import Link from "next/link";
+
+const NAV_LINKS = [
+  { href: "/", label: "Accueil" },
+  { href: "/about", label: "À propos" },
+  { href: "/services", label: "Services" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contact" },
+];
+
+const EXTERNAL_LINKS = [
+  { href: "https://www.linkedin.com/in/lafhej-loic-15a79a3", label: "LinkedIn" },
+  { href: "https://github.com/llafhej1976", label: "GitHub" },
+];
+
+const SERVICES_LINKS = [
+  { href: "/services#ai-platform-architecture", label: "Architecture Plateforme IA" },
+  { href: "/services#llmops-multi-llm", label: "LLMOps & Quorum Multi-LLM" },
+  { href: "/services#ai-act-compliance", label: "Conformité EU AI Act" },
+];
+
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="border-t border-[#262626] py-12 px-6">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8">
-        <div>
-          <div className="flex items-center gap-3 mb-2">
-            <svg width="28" height="28" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-              <rect width="32" height="32" rx="7" fill="url(#fg)" />
-              <path d="M8 7h5v14h9v4H8V7z" fill="white" />
-              <defs>
-                <linearGradient id="fg" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#00d9ff" />
-                  <stop offset="0.5" stopColor="#6b00ff" />
-                  <stop offset="1" stopColor="#ff00c8" />
-                </linearGradient>
-              </defs>
-            </svg>
-            <span className="font-mono text-sm font-bold">
-              <span className="text-[#00d9ff]">LUTECE</span>
-              <span className="text-[#a3a3a3]">.consulting</span>
-            </span>
+    <footer role="contentinfo" className="border-t border-white/[0.06] bg-[#0A0B10]">
+      <div className="container py-14">
+        <div className="grid grid-cols-1 md:grid-cols-[200px_1fr_1fr_1fr] gap-10">
+
+          {/* Brand */}
+          <div>
+            <Link
+              href="/"
+              className="flex items-center gap-2.5 mb-4"
+              aria-label="LUTECE Consulting — Retour à l'accueil"
+            >
+              <div
+                className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                style={{ background: "linear-gradient(135deg, #7C5CFF 0%, #4DD0FF 100%)" }}
+                aria-hidden="true"
+              >
+                <span className="text-white font-black text-[18px] leading-none font-mono">L</span>
+              </div>
+              <span className="font-mono text-[13px] font-bold text-[#F5F6F8] leading-none">
+                LUTECE<span className="text-[#7A7E8C]">.consulting</span>
+              </span>
+            </Link>
+            <p className="text-xs text-[#5A5E6B] leading-relaxed mb-3">
+              LUTECE Consulting SAS<br />
+              Architecte IA Agentique Senior<br />
+              Paris / Île-de-France
+            </p>
+            <div className="flex items-center gap-1.5">
+              <span className="pulse-dot" aria-hidden="true" />
+              <span className="text-xs font-mono text-[#4ADE80]">Disponible · juin 2026</span>
+            </div>
           </div>
-          <p className="text-xs text-[#a3a3a3] max-w-xs">
-            LUTECE Consulting SAS — Architecte IA Senior<br />
-            Paris / Île-de-France · Hybride
+
+          {/* Navigation */}
+          <div>
+            <p className="text-xs font-mono text-[#5A5E6B] uppercase tracking-widest mb-4">
+              Navigation
+            </p>
+            <ul className="space-y-2.5">
+              {NAV_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-[#7A7E8C] hover:text-[#F5F6F8] transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Services */}
+          <div>
+            <p className="text-xs font-mono text-[#5A5E6B] uppercase tracking-widest mb-4">
+              Services
+            </p>
+            <ul className="space-y-2.5">
+              {SERVICES_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-[#7A7E8C] hover:text-[#F5F6F8] transition-colors leading-tight block"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <p className="text-xs font-mono text-[#5A5E6B] uppercase tracking-widest mb-4">
+              Contact
+            </p>
+            <ul className="space-y-2.5">
+              <li>
+                <a
+                  href="mailto:loic.lafhej@lutece-consulting.com"
+                  className="text-sm text-[#7A7E8C] hover:text-[#F5F6F8] transition-colors break-all"
+                >
+                  loic.lafhej@lutece-consulting.com
+                </a>
+              </li>
+              <li>
+                <a
+                  href="tel:+33652561133"
+                  className="text-sm text-[#7A7E8C] hover:text-[#F5F6F8] transition-colors font-mono"
+                >
+                  +33 6 52 56 11 33
+                </a>
+              </li>
+              <li className="pt-2 border-t border-white/[0.04]" />
+              {EXTERNAL_LINKS.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-[#7A7E8C] hover:text-[#F5F6F8] transition-colors"
+                  >
+                    {link.label} ↗
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="mt-12 pt-6 border-t border-white/[0.06] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <p className="text-xs text-[#5A5E6B]">
+            © {year} LUTECE Consulting SAS · Tous droits réservés
+          </p>
+          <p className="text-xs font-mono text-[#3A3E4C]">
+            TJM 850–1100 €/j · Paris / Hybride · Disponible juin 2026
           </p>
         </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 text-sm">
-          <div>
-            <div className="text-white font-semibold mb-3">Contact</div>
-            <a href="mailto:loic.lafhej@lutece-consulting.com" className="text-[#a3a3a3] hover:text-[#00d9ff] block text-xs">
-              loic.lafhej@lutece-consulting.com
-            </a>
-            <span className="text-[#a3a3a3] text-xs">+33 6 52 56 11 33</span>
-          </div>
-          <div>
-            <div className="text-white font-semibold mb-3">Liens</div>
-            <a href="https://www.linkedin.com/in/lafhej-loic-15a79a3" target="_blank" rel="noopener noreferrer" className="text-[#a3a3a3] hover:text-[#00d9ff] block text-xs mb-1">
-              LinkedIn
-            </a>
-            <a href="https://github.com/llafhej1976" target="_blank" rel="noopener noreferrer" className="text-[#a3a3a3] hover:text-[#00d9ff] block text-xs">
-              GitHub
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-[#262626]">
-        <p className="text-xs text-[#a3a3a3]">
-          © {new Date().getFullYear()} LUTECE Consulting SAS · Tous droits réservés
-        </p>
       </div>
     </footer>
   );

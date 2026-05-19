@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight, CheckCircle, MessageSquare } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Services IA Agentique — Architecture, LLMOps, EU AI Act",
@@ -28,7 +29,7 @@ const SERVICES = [
   {
     slug: "ai-platform-architecture",
     number: "01",
-    color: "#00d9ff",
+    accent: "#4DD0FF",
     title: "Architecture de Plateforme IA",
     subtitle: "AI Platform Architecture",
     description:
@@ -45,7 +46,7 @@ const SERVICES = [
   {
     slug: "llmops-multi-llm",
     number: "02",
-    color: "#6b00ff",
+    accent: "#7C5CFF",
     title: "LLMOps & Quorum Multi-LLM",
     subtitle: "LLMOps & Multi-LLM Quorum",
     description:
@@ -62,7 +63,7 @@ const SERVICES = [
   {
     slug: "ai-act-compliance",
     number: "03",
-    color: "#ff00c8",
+    accent: "#E879F9",
     title: "Conformité EU AI Act",
     subtitle: "EU AI Act Compliance",
     description:
@@ -145,7 +146,7 @@ const faqJsonLd = {
 
 export default function ServicesPage() {
   return (
-    <div className="pt-24 pb-24 px-6 max-w-5xl mx-auto">
+    <div className="pt-[72px]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }}
@@ -154,60 +155,157 @@ export default function ServicesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <h1 className="text-4xl font-bold mb-4">Services</h1>
-      <p className="text-lg text-[#a3a3a3] mb-16 max-w-2xl">
-        3 offres de services centrées sur l&apos;IA agentique en production pour
-        environnements régulés. Disponible à partir du 2 juin 2026.
-      </p>
 
-      <div className="space-y-8">
-        {SERVICES.map((service) => (
-          <div key={service.slug} className="glass-card rounded-xl p-8">
-            <div className="flex items-start gap-6">
-              <div className="text-5xl font-mono font-bold shrink-0" style={{ color: service.color }}>
-                {service.number}
-              </div>
-              <div className="flex-1">
-                <h2 className="text-2xl font-bold mb-1">{service.title}</h2>
-                <p className="text-sm text-[#a3a3a3] font-mono mb-4">{service.subtitle}</p>
-                <p className="text-[#a3a3a3] mb-6 leading-relaxed">{service.description}</p>
-
-                <div className="mb-6">
-                  <div className="text-sm font-semibold text-white mb-3">Livrables typiques</div>
-                  <ul className="space-y-1">
-                    {service.deliverables.map((d) => (
-                      <li key={d} className="text-sm text-[#a3a3a3] flex items-center gap-2">
-                        <span style={{ color: service.color }}>→</span> {d}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="flex flex-wrap gap-2">
-                  {service.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs px-3 py-1 rounded-full border"
-                      style={{ borderColor: service.color + "40", color: service.color }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
+      {/* ── Header ──────────────────────────────────── */}
+      <section className="section-spacing dot-grid">
+        <div className="container">
+          <div className="max-w-3xl animate-fade-up">
+            <p className="kicker mb-3">Offres de mission</p>
+            <h1 className="text-4xl md:text-5xl font-black mb-6 text-[#F5F6F8]">
+              3 services,{" "}
+              <span className="gradient-text">un seul focus</span>
+            </h1>
+            <p className="text-lg text-[#B4B7C1] leading-relaxed max-w-2xl">
+              IA agentique en production pour environnements régulés. Pas de
+              conseil théorique — architecture, code, déploiement, mesure.
+              Disponible à partir du 2 juin 2026.
+            </p>
           </div>
-        ))}
-      </div>
+        </div>
+      </section>
 
-      <div className="mt-16 text-center">
-        <Link
-          href="/contact"
-          className="inline-block px-8 py-4 rounded-lg bg-[#00d9ff] text-black font-semibold hover:bg-[#00d9ff]/90 transition"
-        >
-          Discuter de votre projet
-        </Link>
-      </div>
+      {/* ── Services ─────────────────────────────────── */}
+      <section className="section-spacing border-t border-white/[0.06]">
+        <div className="container">
+          <div className="space-y-8 max-w-4xl">
+            {SERVICES.map((service, i) => (
+              <div
+                key={service.slug}
+                id={service.slug}
+                className={`card-gradient-border rounded-xl p-8 animate-fade-up delay-${i + 1}`}
+                style={{ "--hover-accent": service.accent } as React.CSSProperties}
+              >
+                <div className="flex items-start gap-6 md:gap-8">
+                  {/* Number */}
+                  <div
+                    className="text-5xl font-mono font-black shrink-0 leading-none"
+                    style={{ color: service.accent }}
+                    aria-hidden="true"
+                  >
+                    {service.number}
+                  </div>
+
+                  <div className="flex-1 min-w-0">
+                    <div className="mb-4">
+                      <h2 className="text-2xl font-bold text-[#F5F6F8] mb-1">
+                        {service.title}
+                      </h2>
+                      <p className="text-xs font-mono text-[#5A5E6B] tracking-wider uppercase">
+                        {service.subtitle}
+                      </p>
+                    </div>
+
+                    <p className="text-[#B4B7C1] leading-relaxed mb-6">
+                      {service.description}
+                    </p>
+
+                    {/* Deliverables */}
+                    <div className="mb-6">
+                      <p className="text-xs font-mono text-[#7A7E8C] uppercase tracking-widest mb-3">
+                        Livrables typiques
+                      </p>
+                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {service.deliverables.map((d) => (
+                          <li
+                            key={d}
+                            className="text-sm text-[#B4B7C1] flex items-start gap-2"
+                          >
+                            <CheckCircle
+                              size={14}
+                              className="shrink-0 mt-0.5"
+                              style={{ color: service.accent }}
+                            />
+                            {d}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2">
+                      {service.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-xs font-mono px-2.5 py-1 rounded-full border"
+                          style={{
+                            borderColor: service.accent + "40",
+                            color: service.accent,
+                            background: service.accent + "08",
+                          }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ──────────────────────────────────────── */}
+      <section className="section-spacing border-t border-white/[0.06]">
+        <div className="container max-w-3xl">
+          <p className="kicker mb-3 text-center">FAQ</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-12 text-[#F5F6F8]">
+            Questions fréquentes
+          </h2>
+
+          <div className="space-y-4">
+            {faqJsonLd.mainEntity.map((faq) => (
+              <details
+                key={faq.name}
+                className="card rounded-xl group"
+              >
+                <summary className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none select-none text-[#F5F6F8] font-medium hover:text-[#4DD0FF] transition-colors">
+                  {faq.name}
+                  <ArrowRight
+                    size={16}
+                    className="shrink-0 text-[#5A5E6B] group-open:rotate-90 transition-transform duration-200"
+                  />
+                </summary>
+                <div className="px-5 pb-5 pt-0 text-sm text-[#B4B7C1] leading-relaxed border-t border-white/[0.06]">
+                  <p className="pt-4">{faq.acceptedAnswer.text}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ──────────────────────────────────────── */}
+      <section className="section-spacing border-t border-white/[0.06]">
+        <div className="container">
+          <div className="max-w-xl mx-auto text-center">
+            <MessageSquare size={32} className="text-[#4DD0FF] mx-auto mb-4" />
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#F5F6F8]">
+              Discutons de votre projet
+            </h2>
+            <p className="text-[#7A7E8C] mb-8 leading-relaxed">
+              TJM{" "}
+              <span className="text-[#F5F6F8] font-semibold">850–1100 €/j</span>{" "}
+              selon contexte. Paris / hybride.
+              Disponible <span className="text-[#F5F6F8] font-semibold">juin 2026</span>.
+            </p>
+            <Link href="/contact" className="btn btn-primary btn-lg">
+              Prendre contact →
+            </Link>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }
