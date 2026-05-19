@@ -37,7 +37,7 @@ services:
     build: ./frontend
     restart: always
     environment:
-      NEXT_PUBLIC_API_URL: https://lutece-consulting.com/api
+      NEXT_PUBLIC_API_URL: https://lutece-consulting.com
       NEXT_PUBLIC_SITE_URL: https://lutece-consulting.com
     depends_on:
       - backend
