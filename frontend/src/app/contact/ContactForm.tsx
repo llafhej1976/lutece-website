@@ -261,21 +261,26 @@ export default function ContactForm() {
 
               {/* Availability */}
               <TerminalBox title="status" accent>
-                <div className="p-5">
+                <div className="p-4">
                   <div className="flex items-center gap-2 mb-4">
                     <span className="pulse-dot" aria-hidden="true" />
-                    <span className="font-mono text-xs" style={{ color: "var(--accent-success)" }}>Disponible · juin 2026</span>
+                    <span className="font-mono text-[11px] tracking-wide" style={{ color: "var(--accent-success)" }}>
+                      Disponible · juin 2026
+                    </span>
                   </div>
-                  <div className="space-y-2.5 font-mono text-xs">
+                  <div className="space-y-2 font-mono text-[11px]">
                     {[
                       ["TJM", "850–1100 €/j"],
                       ["Mode", "Paris / Hybride"],
                       ["Contrat", "SAS · Freelance"],
                       ["Réponse", "24–48h"],
                     ].map(([k, v]) => (
-                      <div key={k} className="flex justify-between items-center">
+                      <div
+                        key={k}
+                        style={{ display: "grid", gridTemplateColumns: "max-content 1fr", gap: "0 16px" }}
+                      >
                         <span style={{ color: "var(--text-muted)" }}>{k}</span>
-                        <span style={{ color: "var(--text-primary)" }}>{v}</span>
+                        <span className="text-right" style={{ color: "var(--text-primary)" }}>{v}</span>
                       </div>
                     ))}
                   </div>
