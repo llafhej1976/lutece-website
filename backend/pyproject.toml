@@ -3,7 +3,6 @@ name = "lutece-website-backend"
 version = "0.1.0"
 description = "LUTECE Consulting website backend API"
 authors = ["Loïc Lafhej <loic.lafhej@lutece-consulting.com>"]
-python = "^3.12"
 
 [tool.poetry.dependencies]
 python = "^3.12"
